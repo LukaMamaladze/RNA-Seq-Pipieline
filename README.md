@@ -16,13 +16,13 @@ reference_genome_directory = "/media/newdrive/data/Reference_genomes/Human/UCSC/
 
 for i in *_1.fastq.gz
 do
-    STAR --genomeDir $reference_genome_directory \
-    --runThreadN 12 \
-    --readFilesIn $i ${i%_1.fastq.gz}_2.fastq.gz \
-    --readFilesCommand zcat \
-    --outFileNamePrefix STAR_${i%_1.fastq.gz} \
-    --outSAMtype BAM SortedByCoordinate \
-    --outSAMunmapped Within \
+    STAR --genomeDir $reference_genome_directory 
+    --runThreadN 12 
+    --readFilesIn $i ${i%_1.fastq.gz}_2.fastq.gz 
+    --readFilesCommand zcat 
+    --outFileNamePrefix STAR_${i%_1.fastq.gz} 
+    --outSAMtype BAM SortedByCoordinate 
+    --outSAMunmapped Within 
     --outSAMattributes Standard
 done
 
