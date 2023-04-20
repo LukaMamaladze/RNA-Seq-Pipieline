@@ -26,7 +26,7 @@ do
     --outSAMattributes Standard
 done
 
-# Step 4: Post-allignment QC with bam_stat.py, SAMtools Flagstat, genebody_coverage.py, read_distribution.py, 
+# Step 4: Post-allignment QC with bam_stat.py, SAMtools Flagstat, genebody_coverage.py, read_distribution.py
 
 for i in *bam
 do
@@ -43,8 +43,7 @@ done
 
 for i in *bam
 do 
-    samtools index ${i}
-    
+    samtools index ${i} 
     samtools sort $i -i sorted_${i%Aligned_SortedByCoord.out.bam} -T ~/project/star_results
 done
 
