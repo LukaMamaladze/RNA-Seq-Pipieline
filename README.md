@@ -14,7 +14,7 @@ multiqc . -n MultiQC_FastQC -o ~/project/multiqc_results
 
 reference_genome_directory = "/media/newdrive/data/Reference_genomes/Human/UCSC/STAR_UCSC_refseq/"
 
-for i in *_1.fastq.gz
+for i in 1.fastq.gz
 do
     STAR --genomeDir $reference_genome_directory 
     --runThreadN 12 
@@ -28,20 +28,20 @@ done
 
 # Step 4: Post-allignment QC with bam_stat.py, SAMtools Flagstat, genebody_coverage.py, read_distribution.py
 
-for i in *bam
+for i in bam
 do
-    bam_stat.py -i $i  ~/project/bam_stat_results/bam_stat_${i%Aligned.sortedByCoord.out.bam}.txt
-    samtools flagstat $i ~/project/flagstat_results/flagstat_${i%Aligned.sortedByCoord.out.bam}.txt
+    bam_stat.py -i $i > ~/project/bam_stat_results/bam_stat_${i%Aligned.sortedByCoord.out.bam}.txt
+    samtools flagstat $i > ~/project/flagstat_results/flagstat_${i%Aligned.sortedByCoord.out.bam}.txt
     geneBody_coverage.py -r /media/newdrive/data/Reference_genomes/Human/UCSC/hg38.ncbiRefSeq.bed12 
     -i $i
     -o ${i%Aligned.sortedByCoord.out.bam}
     read_distribution.py -r /media/newdrive/data/Reference_genomes/Human/UCSC/hg38.ncbiRefSeq.bed12
-    -i $i  ~/project/star_results/${i%Aligned.sortedByCoord.out.bam}.read_list.txt
+    -i $i > ~/project/star_results/${i%Aligned.sortedByCoord.out.bam}.read_list.txt
 done
 
 # Step 5: Create index files and sort with samtools
 
-for i in *bam
+for i in bam
 do 
     samtools index ${i} 
     samtools sort $i -i sorted_${i%Aligned_SortedByCoord.out.bam} -T ~/project/star_results
