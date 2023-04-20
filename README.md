@@ -31,13 +31,10 @@ done
 for i in *bam
 do
     bam_stat.py -i $i > ~/project/bam_stat_results/bam_stat_${i%Aligned.sortedByCoord.out.bam}.txt
-    
     samtools flagstat $i > ~/project/flagstat_results/flagstat_${i%Aligned.sortedByCoord.out.bam}.txt
-    
     geneBody_coverage.py -r /media/newdrive/data/Reference_genomes/Human/UCSC/hg38.ncbiRefSeq.bed12 \
     -i $i
     -o ${i%Aligned.sortedByCoord.out.bam}
-    
     read_distribution.py -r /media/newdrive/data/Reference_genomes/Human/UCSC/hg38.ncbiRefSeq.bed12 \
     -i $i > ~/project/star_results/${i%Aligned.sortedByCoord.out.bam}.read_list.txt
 done
